@@ -25,6 +25,10 @@ export default function RootLayout({
   return (
     <html lang="zh-Hant">
       <head>
+        <meta
+          name="google-site-verification"
+          content="gSj0oI09d4hiDUgO1uzeBP5EE9EKNe0lnm6hbSWdJ_g"
+        />
         {/* set initial theme before paint to avoid flash */}
         <script
           dangerouslySetInnerHTML={{
