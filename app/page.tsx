@@ -1,65 +1,133 @@
-import Image from "next/image";
+// app/page.tsx
+import { exams } from '../data/exams';
+import AutobioEditor from './components/AutobioEditor';
+import ThemeToggle from './components/ThemeToggle';
 
 export default function Home() {
+  // 先把有「115簡章」的排在前面
+  const sortedExams = [...exams].sort((a, b) => {
+    const a115 = a.brochure.includes('115');
+    const b115 = b.brochure.includes('115');
+    if (a115 === b115) return 0;
+    return a115 ? -1 : 1;
+  });
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        {/* 標題 */}
+        <header className="mb-8">
+          <div className="flex items-start justify-between gap-4">
+            <div className="text-center flex-1">
+              <h1 className="text-3xl font-bold mb-2">
+                台灣各大學寒轉學考簡章與時程彙總
+              </h1>
+              <p className="text-sm text-[var(--muted-text)]">
+                （目前為人工整理，請以各校官方公告為準）
+              </p>
+            </div>
+            <ThemeToggle />
+          </div>
+        </header>
+
+        {/* 表格 */}
+        <section className="shadow-sm rounded-lg overflow-hidden border bg-[var(--panel-bg)] border-[var(--panel-border)]">
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead className="bg-[var(--muted-bg)]">
+                <tr>
+                  <th className="px-4 py-3 text-left font-semibold">學校</th>
+                  <th className="px-4 py-3 text-left font-semibold">報名</th>
+                  <th className="px-4 py-3 text-left font-semibold">考試</th>
+                  <th className="px-4 py-3 text-left font-semibold">放榜日期</th>
+                  <th className="px-4 py-3 text-left font-semibold">寒轉簡章</th>
+                  <th className="px-4 py-3 text-left font-semibold">備註</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedExams.map((item, idx) => (
+                  <tr
+                    key={idx}
+                    className={idx % 2 === 0 ? 'bg-[var(--panel-bg)]' : 'bg-[var(--muted-bg)]'}
+                  >
+                    {/* 學校 */}
+                    <td className="px-4 py-3 align-top">{item.university}</td>
+
+                    {/* 報名 */}
+                    <td className="px-4 py-3 align-top whitespace-nowrap">
+                      {item.apply}
+                    </td>
+
+                    {/* 考試方式／日期 */}
+                    <td className="px-4 py-3 align-top">{item.exam}</td>
+
+                    {/* 放榜日期 */}
+                    <td className="px-4 py-3 align-top whitespace-nowrap">
+                      {item.result}
+                    </td>
+
+                    {/* 簡章：有網址就顯示可點連結，沒有就純文字 */}
+                    <td className="px-4 py-3 align-top">
+                      {item.brochureUrl ? (
+                        <a
+                          href={item.brochureUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline text-[var(--link)]"
+                        >
+                          {item.brochure}
+                        </a>
+                      ) : (
+                        item.brochure
+                      )}
+                    </td>
+
+                    {/* 備註 */}
+                    <td className="px-4 py-3 align-top">{item.note ?? ''}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* 底部：建議與自傳編輯器 */}
+        <section className="mt-10 space-y-6">
+          <div className="rounded-lg shadow-sm border p-4 bg-[var(--panel-bg)] border-[var(--panel-border)]">
+            <h2 className="text-lg font-semibold mb-2">自傳與讀書計畫撰寫建議</h2>
+            <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-700 dark:text-slate-200">
+              <div>
+                <h3 className="font-semibold text-slate-900 mb-1">自傳建議</h3>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>動機與轉學原因：為何想轉、想學什麼。</li>
+                  <li>學習與實作：課堂、專題、競賽或實習成果。</li>
+                  <li>能力與證照：課內外技能、工具、語言能力。</li>
+                  <li>反思與成長：遇到的挑戰、如何面對與改變。</li>
+                  <li>系所連結：申請科系的匹配度與可帶來的貢獻。</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold text-slate-900 mb-1">讀書計畫建議</h3>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>學習目標：短中期重點與預期成果。</li>
+                  <li>課程規劃：基礎補強與專業選修方向。</li>
+                  <li>時間安排：學期與每週的大致節奏。</li>
+                  <li>補強策略：弱項與資源（書、線上課、實作）。</li>
+                  <li>研究/專題：有興趣領域與初步想法。</li>
+                </ul>
+              </div>
+            </div>
+            <p className="text-xs mt-3 text-[var(--muted-text)]">小提醒：內容具體、可量化，並連結到系所培養目標更有說服力。</p>
+          </div>
+
+          {/* 自傳草稿 + ChatGPT 審查 */}
+          <AutobioEditor />
+
+          <footer className="text-center text-xs mt-4 text-[var(--muted-text)]">
+            資料僅供參考，請再次確認各校官網公告。本站不代表任何學校單位。
+          </footer>
+        </section>
+      </div>
+    </main>
   );
 }
