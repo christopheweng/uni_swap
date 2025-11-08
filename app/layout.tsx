@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant">
+    <html lang="zh-Hant" suppressHydrationWarning>
       <head>
         {/* set initial theme before paint to avoid flash */}
         <script
@@ -45,4 +45,3 @@ export default function RootLayout({
     </html>
   );
 }
-

@@ -46,6 +46,8 @@ body {
   --muted-text: #475569; /* slate-600 */
   --muted-bg: #f1f5f9; /* slate-100 */
   --link: #2563eb; /* blue-600 */
+  /* 自傳/讀書計畫卡片的文字顏色（亮/暗模式用變數切換） */
+  --guidance-fg: #0f172a; /* slate-900 */
 }
 
 .dark {
@@ -54,4 +56,5 @@ body {
   --muted-text: #94a3b8; /* slate-400 */
   --muted-bg: #334155; /* slate-700 */
   --link: #60a5fa; /* blue-400 */
+  --guidance-fg: #ffffff; /* 深色模式下卡片字色改白 */
 }

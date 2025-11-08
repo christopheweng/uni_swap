@@ -59,9 +59,111 @@ export const brochure115Map: Record<string, string> = {
   //元智大學
   元智大學:
     'http://apply2.daso.com.tw:8080/comp/upload/8298.pdf',
+
+  // 北教大（國立臺北教育大學）
+  北教大:
+    'http://apply2.daso.com.tw:8080/comp/upload/8269.pdf',
+
+  // 高師大（國立高雄師範大學）
+  高師大:
+    'http://apply2.daso.com.tw:8080/comp/upload/8256.pdf',
+
+  // 中山醫（中山醫學大學）
+  中山醫:
+    'http://apply2.daso.com.tw:8080/comp/upload/8261.pdf',
+
+  // 高雄醫（高雄醫學大學）
+  高雄醫:
+    'http://apply2.daso.com.tw:8080/comp/upload/8299.pdf',
+
+  // 輔仁大學
+  輔仁大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8240.pdf',
+
+  // 中原大學
+  中原大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8253.pdf',
+
+  // 逢甲大學
+  逢甲大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8288.pdf',
+
+  // 靜宜大學
+  靜宜大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8272.pdf',
+
+  // 佛光大學
+  佛光大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8263.pdf',
+
+  // 勤益科技大學
+  勤益科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8257.pdf',
+
+  // 屏東科技大學
+  屏東科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8307.pdf',
+
+  // 德明科技大學
+  德明科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8260.pdf',
+
+  // 中國科技大學（官方）
+  中國科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8243.pdf',
+
+  // 中國科技大學（校區別名）
+  '中國科技大學 台北':
+    'http://apply2.daso.com.tw:8080/comp/upload/8243.pdf',
+  '中國科技大學 新竹':
+    'https://drive.google.com/file/d/1JrPoM6G21O3Q3Iq_Efma4McqamgaYfBR/view',
+
+  // 景文科技大學
+  景文科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8237.pdf',
+
+  // 健行科技大學
+  健行科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8244.pdf',
+
+  // 明新科技大學
+  明新科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8301.pdf',
+
+  // 元培醫事科大
+  元培醫事科大:
+    'http://apply2.daso.com.tw:8080/comp/upload/8239.pdf',
+
+  // 朝陽科技大學
+  朝陽科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8296.pdf',
+
+  // 弘光科技大學
+  弘光科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8303.pdf',
+
+  // 崑山科技大學
+  崑山科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8308.pdf',
+
+  // 致理科技大學
+  致理科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8154.pdf',
+
+  // 醒吾科技大學
+  醒吾科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8304.pdf',
+
+  // 中臺科技大學
+  中臺科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8273.pdf',
+
+  // 台南應用科技大學
+  台南應用科技大學:
+    'http://apply2.daso.com.tw:8080/comp/upload/8295.pdf',
 };
 
-// 你原本那張表整理成 rawExams（之後新增或修改資料也改這裡）
+
 type RawExam = {
   university: string;
   apply: string;

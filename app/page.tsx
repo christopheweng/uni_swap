@@ -2,15 +2,10 @@
 import { exams } from '../data/exams';
 import AutobioEditor from './components/AutobioEditor';
 import ThemeToggle from './components/ThemeToggle';
+import ExamTable from './components/ExamTable';
 
 export default function Home() {
-  // 先把有「115簡章」的排在前面
-  const sortedExams = [...exams].sort((a, b) => {
-    const a115 = a.brochure.includes('115');
-    const b115 = b.brochure.includes('115');
-    if (a115 === b115) return 0;
-    return a115 ? -1 : 1;
-  });
+  // 節省伺服器端負擔：排序交給前端元件處理
 
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
@@ -30,74 +25,16 @@ export default function Home() {
           </div>
         </header>
 
-        {/* 表格 */}
-        <section className="shadow-sm rounded-lg overflow-hidden border bg-[var(--panel-bg)] border-[var(--panel-border)]">
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead className="bg-[var(--muted-bg)]">
-                <tr>
-                  <th className="px-4 py-3 text-left font-semibold">學校</th>
-                  <th className="px-4 py-3 text-left font-semibold">報名</th>
-                  <th className="px-4 py-3 text-left font-semibold">考試</th>
-                  <th className="px-4 py-3 text-left font-semibold">放榜日期</th>
-                  <th className="px-4 py-3 text-left font-semibold">寒轉簡章</th>
-                  <th className="px-4 py-3 text-left font-semibold">備註</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedExams.map((item, idx) => (
-                  <tr
-                    key={idx}
-                    className={idx % 2 === 0 ? 'bg-[var(--panel-bg)]' : 'bg-[var(--muted-bg)]'}
-                  >
-                    {/* 學校 */}
-                    <td className="px-4 py-3 align-top">{item.university}</td>
-
-                    {/* 報名 */}
-                    <td className="px-4 py-3 align-top whitespace-nowrap">
-                      {item.apply}
-                    </td>
-
-                    {/* 考試方式／日期 */}
-                    <td className="px-4 py-3 align-top">{item.exam}</td>
-
-                    {/* 放榜日期 */}
-                    <td className="px-4 py-3 align-top whitespace-nowrap">
-                      {item.result}
-                    </td>
-
-                    {/* 簡章：有網址就顯示可點連結，沒有就純文字 */}
-                    <td className="px-4 py-3 align-top">
-                      {item.brochureUrl ? (
-                        <a
-                          href={item.brochureUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline text-[var(--link)]"
-                        >
-                          {item.brochure}
-                        </a>
-                      ) : (
-                        item.brochure
-                      )}
-                    </td>
-
-                    {/* 備註 */}
-                    <td className="px-4 py-3 align-top">{item.note ?? ''}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        {/* 搜尋 + 表格（前端過濾/排序） */}
+        <ExamTable data={exams} />
 
         {/* 底部：建議與自傳編輯器 */}
         <section className="mt-10 space-y-6">
           <div className="rounded-lg shadow-sm border p-4 bg-[var(--panel-bg)] border-[var(--panel-border)]">
-            <h2 className="text-lg font-semibold mb-2">自傳與讀書計畫撰寫建議</h2>
-            <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-700 dark:text-slate-200">
+            <h2 className="text-lg font-semibold mb-2 text-[var(--guidance-fg)]">自傳與讀書計畫撰寫建議</h2>
+            <div className="grid md:grid-cols-2 gap-4 text-sm text-[var(--guidance-fg)]">
               <div>
-                <h3 className="font-semibold text-slate-900 mb-1">自傳建議</h3>
+                <h3 className="font-semibold mb-1 text-[var(--guidance-fg)]">自傳建議</h3>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>動機與轉學原因：為何想轉、想學什麼。</li>
                   <li>學習與實作：課堂、專題、競賽或實習成果。</li>
@@ -107,7 +44,7 @@ export default function Home() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 mb-1">讀書計畫建議</h3>
+                <h3 className="font-semibold mb-1 text-[var(--guidance-fg)]">讀書計畫建議</h3>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>學習目標：短中期重點與預期成果。</li>
                   <li>課程規劃：基礎補強與專業選修方向。</li>
@@ -117,7 +54,7 @@ export default function Home() {
                 </ul>
               </div>
             </div>
-            <p className="text-xs mt-3 text-[var(--muted-text)]">小提醒：內容具體、可量化，並連結到系所培養目標更有說服力。</p>
+            <p className="text-xs mt-3 text-[var(--guidance-fg)]/90">小提醒：內容具體、可量化，並連結到系所培養目標更有說服力。</p>
           </div>
 
           {/* 自傳草稿 + ChatGPT 審查 */}
